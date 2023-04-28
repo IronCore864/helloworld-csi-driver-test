@@ -1,0 +1,23 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helloworld
+  namespace: argocd
+spec:
+  destination:
+    namespace: helloworld 
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: helloworld
+    repoURL: https://github.com/merico-dev/devlake-saas-helloworld-csi-driver-test
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
